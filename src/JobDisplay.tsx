@@ -1,7 +1,7 @@
 import React from 'react';
-import { Skill } from './interfaces';
+import { Skill, IJob } from './interfaces';
 
-export const JobDisplay = () => {
+export const JobDisplay = ({ job,handleDeleteJob => void  }: IJob) => {
   return (
     <>
       <div className="job" key={job.id}>

@@ -27,7 +27,7 @@
 
 import React, { useContext } from 'react';
 import { AppContext } from '../appContext';
-import { Job, Skill } from '../interfaces';
+import { IJob, Skill } from '../interfaces';
 import { JobDisplay } from '../JobDisplay';
 
 export const PageJobs = () => {
@@ -52,7 +52,7 @@ export const PageJobs = () => {
     <div className="page pageJobs">
       <div className="jobs">
         <h2>There are {jobs.length} jobs:</h2>
-        {jobs.map((job: Job) => {
+        {jobs.map((job: IJob) => {
           return <JobDisplay job={job} />;
         })}
       </div>
