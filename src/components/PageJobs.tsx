@@ -53,7 +53,7 @@ export const PageJobs = () => {
       <div className="jobs">
         <h2>There are {jobs.length} jobs:</h2>
         {jobs.map((job: IJob) => {
-          return <JobDisplay job={job} />;
+          return <JobDisplay job={job} handleDeleteJob={handleDeleteJob} />;
         })}
       </div>
     </div>
