@@ -29,6 +29,7 @@ import { useContext } from 'react';
 import { AppContext } from '../appContext';
 import { IJob } from '../interfaces';
 import { JobDisplay } from './JobDisplay';
+import { JobEdit } from './JobEdit';
 
 export const PageJobs = () => {
   // const [jobs, setJobs] = useState<IJobs[]>([]); // without default value
@@ -55,7 +56,8 @@ export const PageJobs = () => {
         <h2>There are {jobs.length} jobs:</h2>
         {jobs.map((job: IJob) => {
           // return <JobDisplay job={job} handleDeleteJob={handleDeleteJob} />;
-          return <JobDisplay job={job} key={job.id} />;
+          // return <JobDisplay job={job} key={job.id} />;
+          return <JobEdit key={job.id} />;
         })}
       </div>
     </div>
