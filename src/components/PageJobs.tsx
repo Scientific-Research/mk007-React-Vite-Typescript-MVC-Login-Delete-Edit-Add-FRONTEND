@@ -57,7 +57,7 @@ export const PageJobs = () => {
         {jobs.map((job: IJob) => {
           // return <JobDisplay job={job} handleDeleteJob={handleDeleteJob} />;
           // return <JobDisplay job={job} key={job.id} />;
-          return <JobEdit key={job.id} />;
+          return <JobEdit job={job} key={job.id} />;
         })}
       </div>
     </div>
