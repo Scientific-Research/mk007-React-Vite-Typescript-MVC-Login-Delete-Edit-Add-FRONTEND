@@ -28,7 +28,7 @@
 import React, { useContext } from 'react';
 import { AppContext } from '../appContext';
 import { IJob, Skill } from '../interfaces';
-import { JobDisplay } from '../JobDisplay';
+import { JobDisplay } from './JobDisplay';
 
 export const PageJobs = () => {
   // const [jobs, setJobs] = useState<IJobs[]>([]); // without default value

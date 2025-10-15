@@ -1,5 +1,5 @@
 import React from 'react';
-import { Skill, IJob } from './interfaces';
+import { Skill, IJob } from '../interfaces';
 
 interface IJobDisplay {
   job: IJob;
