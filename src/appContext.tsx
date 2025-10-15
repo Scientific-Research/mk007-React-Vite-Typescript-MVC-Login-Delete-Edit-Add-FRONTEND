@@ -1,14 +1,14 @@
 import { useState, useEffect } from 'react';
 import { createContext } from 'react';
 import axios from 'axios';
-import { Job, Todo, TotaledSkill } from './interfaces';
+import { IJob, ITodo, ITotaledSkill } from './interfaces';
 
 interface IAppContext {
-  jobs: Job[];
-  todos: Todo[];
-  totaledSkills: TotaledSkill[];
-  handleToggleTotaledSkill: (totaledSkill: TotaledSkill) => void;
-  handleDeleteJob: (job: Job) => void;
+  jobs: IJob[];
+  todos: ITodo[];
+  totaledSkills: ITotaledSkill[];
+  handleToggleTotaledSkill: (totaledSkill: ITotaledSkill) => void;
+  handleDeleteJob: (job: IJob) => void;
 }
 
 interface IAppProvider {
@@ -20,9 +20,9 @@ const backendUrl = 'http://localhost:8000';
 export const AppContext = createContext<IAppContext>({} as IAppContext);
 
 export const AppProvider: React.FC<IAppProvider> = ({ children }) => {
-  const [jobs, setJobs] = useState<Job[]>([]);
-  const [todos, setTodos] = useState<Todo[]>([]);
-  const [totaledSkills, setTotaledSkills] = useState<TotaledSkill[]>([]);
+  const [jobs, setJobs] = useState<IJob[]>([]);
+  const [todos, setTodos] = useState<ITodo[]>([]);
+  const [totaledSkills, setTotaledSkills] = useState<ITotaledSkill[]>([]);
 
   const loadJobs = async () => {
     const _jobs = (await axios.get(`${backendUrl}/jobs`)).data;
@@ -32,17 +32,17 @@ export const AppProvider: React.FC<IAppProvider> = ({ children }) => {
   const loadTodos = async () => {
     (async () => {
       const _todos = (await axios.get(`${backendUrl}/todos`)).data;
-      _todos.sort((a: Todo, b: Todo) => a.todo > b.todo);
+      _todos.sort((a: ITodo, b: ITodo) => a.todo > b.todo);
       setTodos(_todos);
     })();
   };
 
   const loadTotaledSkills = async () => {
-    const _totaledSkills: TotaledSkill[] = (
+    const _totaledSkills: ITotaledSkill[] = (
       await axios.get(`${backendUrl}/totaledSkills`)
     ).data;
     _totaledSkills.sort(
-      (a: TotaledSkill, b: TotaledSkill) => Number(b.total) - Number(a.total)
+      (a: ITotaledSkill, b: ITotaledSkill) => Number(b.total) - Number(a.total)
     );
     _totaledSkills.forEach((_totaledSkill) => {
       _totaledSkill.isOpen = false;
@@ -96,12 +96,12 @@ export const AppProvider: React.FC<IAppProvider> = ({ children }) => {
     })();
   }, []);
 
-  const handleToggleTotaledSkill = (totaledSkill: TotaledSkill) => {
+  const handleToggleTotaledSkill = (totaledSkill: ITotaledSkill) => {
     totaledSkill.isOpen = !totaledSkill.isOpen;
     setTotaledSkills([...totaledSkills]);
   };
 
-  const handleDeleteJob = async (job: Job) => {
+  const handleDeleteJob = async (job: IJob) => {
     // console.log('deleting the Job with id' + job.id);
     try {
       const res = await axios.delete(`${backendUrl}/jobs/${job.id}`);

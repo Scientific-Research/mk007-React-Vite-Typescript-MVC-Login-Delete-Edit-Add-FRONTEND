@@ -1,13 +1,17 @@
-import React from 'react';
-import { Skill, IJob } from '../interfaces';
+import React, { useContext } from 'react';
+import { ISkill, IJob } from '../interfaces';
+import { AppContext } from '../appContext';
 
 interface IJobDisplay {
   job: IJob;
-  handleDeleteJob: (job: IJob) => void;
+  // handleDeleteJob: (job: IJob) => void;
 }
 
 // export const JobDisplay: React.FC<IJobDisplay> = ({ job, handleDeleteJob }) => {
-export const JobDisplay = ({ job, handleDeleteJob }: IJobDisplay) => {
+// export const JobDisplay = ({ job, handleDeleteJob }: IJobDisplay) => {
+export const JobDisplay = ({ job }: IJobDisplay) => {
+  const { handleDeleteJob } = useContext(AppContext);
+
   return (
     <div className="job" key={job.id}>
       <div className="title">
@@ -19,7 +23,7 @@ export const JobDisplay = ({ job, handleDeleteJob }: IJobDisplay) => {
       <div className="todo">NEXT TASK: {job.todo}</div>
       <div className="description">{job.description}</div>
       <div className="skills">
-        {job.skills.map((skill: Skill) => {
+        {job.skills.map((skill: ISkill) => {
           return (
             <React.Fragment key={skill.idCode}>
               {skill.name ? (

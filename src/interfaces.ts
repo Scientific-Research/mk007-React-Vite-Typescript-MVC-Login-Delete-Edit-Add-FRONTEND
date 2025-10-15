@@ -5,26 +5,26 @@ export interface IJob {
   url: string;
   description: string;
   skillList: string;
-  skills: Skill[];
+  skills: ISkill[];
   todo: string;
 }
 
-export interface Skill {
+export interface ISkill {
   idCode: string;
   name: string;
   url: string;
   description: string;
 }
 
-export interface Todo {
+export interface ITodo {
   todo: string;
   company: string;
   title: string;
   url: string;
 }
 
-export interface TotaledSkill {
-  skill: Skill;
+export interface ITotaledSkill {
+  skill: ISkill;
   total: number;
   isOpen: boolean;
   lookupInfoLink: string;

@@ -25,9 +25,9 @@
 // // const url = 'http://localhost:8000/jobs';
 // const url = 'http://localhost:8000';
 
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import { AppContext } from '../appContext';
-import { IJob, Skill } from '../interfaces';
+import { IJob } from '../interfaces';
 import { JobDisplay } from './JobDisplay';
 
 export const PageJobs = () => {
@@ -46,14 +46,16 @@ export const PageJobs = () => {
 
   // NOTE: ALL ABOVE COMMENTED STATEMENTS ARE REPLACED WITH BELOW useContext(AppContext) AS FOLLOWING:
 
-  const { jobs, handleDeleteJob } = useContext(AppContext);
+  // const { jobs, handleDeleteJob } = useContext(AppContext);
+  const { jobs } = useContext(AppContext);
 
   return (
     <div className="page pageJobs">
       <div className="jobs">
         <h2>There are {jobs.length} jobs:</h2>
         {jobs.map((job: IJob) => {
-          return <JobDisplay job={job} handleDeleteJob={handleDeleteJob} />;
+          // return <JobDisplay job={job} handleDeleteJob={handleDeleteJob} />;
+          return <JobDisplay job={job} key={job.id} />;
         })}
       </div>
     </div>
