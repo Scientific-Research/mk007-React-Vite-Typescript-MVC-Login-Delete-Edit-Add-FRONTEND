@@ -6,7 +6,8 @@ interface IJobDisplay {
   handleDeleteJob: (job: IJob) => void;
 }
 
-export const JobDisplay: React.FC<IJobDisplay> = ({ job, handleDeleteJob }) => {
+// export const JobDisplay: React.FC<IJobDisplay> = ({ job, handleDeleteJob }) => {
+export const JobDisplay = ({ job, handleDeleteJob }: IJobDisplay) => {
   return (
     <div className="job" key={job.id}>
       <div className="title">
