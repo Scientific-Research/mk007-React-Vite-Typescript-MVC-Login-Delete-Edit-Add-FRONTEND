@@ -56,8 +56,15 @@ export const PageJobs = () => {
         <h2>There are {jobs.length} jobs:</h2>
         {jobs.map((job: IJob) => {
           // return <JobDisplay job={job} handleDeleteJob={handleDeleteJob} />;
-          // return <JobDisplay job={job} key={job.id} />;
-          return <JobEdit job={job} key={job.id} />;
+          return (
+            <>
+              {job.jobIsEditing ? (
+                <JobEdit job={job} key={job.id} />
+              ) : (
+                <JobDisplay job={job} key={job.id} />
+              )}
+            </>
+          );
         })}
       </div>
     </div>
