@@ -30,6 +30,7 @@ import { AppContext } from '../appContext';
 import { IJob } from '../interfaces';
 import { JobDisplay } from './JobDisplay';
 import { JobEdit } from './JobEdit';
+import React from 'react';
 
 export const PageJobs = () => {
   // const [jobs, setJobs] = useState<IJobs[]>([]); // without default value
@@ -57,13 +58,13 @@ export const PageJobs = () => {
         {jobs.map((job: IJob) => {
           // return <JobDisplay job={job} handleDeleteJob={handleDeleteJob} />;
           return (
-            <>
+            <React.Fragment key={job.id}>
               {job.userIsEditing ? (
                 <JobEdit job={job} key={job.id} />
               ) : (
                 <JobDisplay job={job} key={job.id} />
               )}
-            </>
+            </React.Fragment>
           );
         })}
       </div>
