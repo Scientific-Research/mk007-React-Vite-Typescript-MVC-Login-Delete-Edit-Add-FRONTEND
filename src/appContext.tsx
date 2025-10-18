@@ -31,7 +31,7 @@ export const AppProvider: React.FC<IAppProvider> = ({ children }) => {
     rawJobs.forEach((rawJob: IJob) => {
       const _job = {
         ...rawJob,
-        userIsEditing: false, // adding this property to the rawJobs using spread operator
+        userIsEditing: true, // adding this property to the rawJobs using spread operator
       };
       _jobs.push(_job);
     });

@@ -58,7 +58,7 @@ export const PageJobs = () => {
           // return <JobDisplay job={job} handleDeleteJob={handleDeleteJob} />;
           return (
             <>
-              {job.jobIsEditing ? (
+              {job.userIsEditing ? (
                 <JobEdit job={job} key={job.id} />
               ) : (
                 <JobDisplay job={job} key={job.id} />

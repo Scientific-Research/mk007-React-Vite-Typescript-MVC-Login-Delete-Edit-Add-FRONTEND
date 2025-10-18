@@ -7,7 +7,7 @@ export interface IJob {
   skillList: string;
   skills: ISkill[];
   todo: string;
-  jobIsEditing: boolean;
+  userIsEditing: boolean;
 }
 
 export interface ISkill {
