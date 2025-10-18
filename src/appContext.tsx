@@ -25,7 +25,16 @@ export const AppProvider: React.FC<IAppProvider> = ({ children }) => {
   const [totaledSkills, setTotaledSkills] = useState<ITotaledSkill[]>([]);
 
   const loadJobs = async () => {
-    const _jobs = (await axios.get(`${backendUrl}/jobs`)).data;
+    // const _jobs = (await axios.get(`${backendUrl}/jobs`)).data;
+    const rawJobs = (await axios.get(`${backendUrl}/jobs`)).data;
+    const _jobs: IJob[] = [];
+    rawJobs.forEach((rawJob: IJob) => {
+      const _job = {
+        ...rawJob,
+        userIsEditing: false, // adding this property to the rawJobs using spread operator
+      };
+      _jobs.push(_job);
+    });
     setJobs(_jobs);
   };
 
