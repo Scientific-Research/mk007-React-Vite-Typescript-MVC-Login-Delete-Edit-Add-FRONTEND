@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { createContext } from 'react';
 import axios from 'axios';
-import { IJob, ITodo, ITotaledSkill } from './interfaces';
+import { IEditItem, IJob, ITodo, ITotaledSkill } from './interfaces';
 
 interface IAppContext {
   jobs: IJob[];
@@ -160,6 +160,14 @@ export const AppProvider: React.FC<IAppProvider> = ({ children }) => {
         console.error(`ERROR:${message}`);
       }
     }
+  };
+
+  const handleChangeFormField = (
+    value: string,
+    job: IJob,
+    fieldIdCode: string
+  ) => {
+    job.editItem[fieldIdCode as keyof IEditItem] = value;
   };
 
   return (

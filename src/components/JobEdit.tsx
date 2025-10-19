@@ -35,7 +35,7 @@ export const JobEdit = ({ job }: IJobEdit) => {
               value={job.editItem.description}
               type="text"
               onChange={(e) =>
-                handleChangeFormField(e.target.value, job, 'title')
+                handleChangeFormField(e.target.value, job, 'description')
               }
             />
           </div>
