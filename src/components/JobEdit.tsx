@@ -7,5 +7,12 @@ interface IJobEdit {
 }
 
 export const JobEdit = ({ job }: IJobEdit) => {
-  return <div>editing job "{job.title}"</div>;
+  // return <div>editing job "{job.title}"</div>;
+  return (
+    <form action="">
+      <fieldset>
+        <legend>Editing Job</legend>
+      </fieldset>
+    </form>
+  );
 };
