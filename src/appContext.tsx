@@ -10,6 +10,11 @@ interface IAppContext {
   handleToggleTotaledSkill: (totaledSkill: ITotaledSkill) => void;
   handleDeleteJob: (job: IJob) => void;
   handleEditJob: (job: IJob) => void;
+  handleChangeFormField: (
+    value: string,
+    job: IJob,
+    fieldIdCode: string
+  ) => void;
 }
 
 interface IAppProvider {
@@ -166,6 +171,7 @@ export const AppProvider: React.FC<IAppProvider> = ({ children }) => {
         handleToggleTotaledSkill,
         handleDeleteJob,
         handleEditJob,
+        handleChangeFormField,
       }}
     >
       {children}

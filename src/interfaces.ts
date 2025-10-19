@@ -8,6 +8,12 @@ export interface IJob {
   skills: ISkill[];
   todo: string;
   userIsEditing: boolean;
+  editItem: IEditItem;
+}
+
+export interface IEditItem {
+  title: string;
+  description: string;
 }
 
 export interface ISkill {
