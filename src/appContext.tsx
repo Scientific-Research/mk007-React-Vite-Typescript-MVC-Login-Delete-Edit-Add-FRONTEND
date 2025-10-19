@@ -136,6 +136,8 @@ export const AppProvider: React.FC<IAppProvider> = ({ children }) => {
   };
 
   const handleEditJob = async (job: IJob) => {
+    job.userIsEditing = !job.userIsEditing;
+    setJobs([...jobs]);
     // console.log(`${job} was deleted!`);
     try {
       const res = await axios.put(`${backendUrl}/jobs/${job.id}`);
