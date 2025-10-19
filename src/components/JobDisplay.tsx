@@ -10,7 +10,7 @@ interface IJobDisplay {
 // export const JobDisplay: React.FC<IJobDisplay> = ({ job, handleDeleteJob }) => {
 // export const JobDisplay = ({ job, handleDeleteJob }: IJobDisplay) => {
 export const JobDisplay = ({ job }: IJobDisplay) => {
-  const { handleDeleteJob } = useContext(AppContext);
+  const { handleDeleteJob, handleEditJob } = useContext(AppContext);
 
   return (
     <div className="job" key={job.id}>
@@ -53,7 +53,12 @@ export const JobDisplay = ({ job }: IJobDisplay) => {
         })}
       </div>
       <div className="managePanel">
-        <button onClick={() => handleDeleteJob(job)}>Delete</button>
+        <button className="delete" onClick={() => handleDeleteJob(job)}>
+          Delete
+        </button>
+        <button className="edit" onClick={() => handleEditJob(job)}>
+          Edit
+        </button>
       </div>
     </div>
   );

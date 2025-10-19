@@ -9,6 +9,7 @@ interface IAppContext {
   totaledSkills: ITotaledSkill[];
   handleToggleTotaledSkill: (totaledSkill: ITotaledSkill) => void;
   handleDeleteJob: (job: IJob) => void;
+  handleEditJob: (job: IJob) => void;
 }
 
 interface IAppProvider {
@@ -31,7 +32,7 @@ export const AppProvider: React.FC<IAppProvider> = ({ children }) => {
     rawJobs.forEach((rawJob: IJob) => {
       const _job = {
         ...rawJob,
-        userIsEditing: true, // adding this property to the rawJobs using spread operator
+        userIsEditing: false, // adding this property to the rawJobs using spread operator
       };
       _jobs.push(_job);
     });
@@ -114,11 +115,31 @@ export const AppProvider: React.FC<IAppProvider> = ({ children }) => {
     // console.log('deleting the Job with id' + job.id);
     try {
       const res = await axios.delete(`${backendUrl}/jobs/${job.id}`);
-      if ((res.status = 200)) {
+      if (res.status === 200) {
         // const _jobs = jobs.filter((j) => j.id !== job.id);
         // setJobs([..._jobs]);
 
         // To update all three pages => Jobs, Todos, Skills
+        await loadJobs();
+        await loadTodos();
+        await loadTotaledSkills();
+      } else {
+        console.log(res);
+      }
+    } catch (error: any) {
+      console.error(`ERROR: ${error.message}`);
+      const message = error.response.data.message;
+      if (message) {
+        console.error(`ERROR:${message}`);
+      }
+    }
+  };
+
+  const handleEditJob = async (job: IJob) => {
+    // console.log(`${job} was deleted!`);
+    try {
+      const res = await axios.put(`${backendUrl}/jobs/${job.id}`);
+      if (res.status === 200) {
         await loadJobs();
         await loadTodos();
         await loadTotaledSkills();
@@ -142,6 +163,7 @@ export const AppProvider: React.FC<IAppProvider> = ({ children }) => {
         totaledSkills,
         handleToggleTotaledSkill,
         handleDeleteJob,
+        handleEditJob,
       }}
     >
       {children}
