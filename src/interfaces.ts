@@ -11,6 +11,11 @@ export interface IJob {
   editItem: IEditItem;
 }
 
+export const editItem = {
+  title: '',
+  description: '',
+};
+
 export interface IEditItem {
   title: string;
   description: string;

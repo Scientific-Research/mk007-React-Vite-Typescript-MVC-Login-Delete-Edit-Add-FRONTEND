@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { createContext } from 'react';
 import axios from 'axios';
-import { IEditItem, IJob, ITodo, ITotaledSkill } from './interfaces';
+import { editItem, IEditItem, IJob, ITodo, ITotaledSkill } from './interfaces';
 
 interface IAppContext {
   jobs: IJob[];
@@ -38,6 +38,7 @@ export const AppProvider: React.FC<IAppProvider> = ({ children }) => {
       const _job = {
         ...rawJob,
         userIsEditing: false, // adding this property to the rawJobs using spread operator
+        editItem,
       };
       _jobs.push(_job);
     });
@@ -168,6 +169,7 @@ export const AppProvider: React.FC<IAppProvider> = ({ children }) => {
     fieldIdCode: string
   ) => {
     job.editItem[fieldIdCode as keyof IEditItem] = value;
+    // job.editItem.title = value;
   };
 
   return (
