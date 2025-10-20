@@ -142,7 +142,7 @@ body {
 
       form {
         fieldset {
-          margin: 0 2em 2em 0;
+          margin: 2rem 2em 2em 0;
           padding: 1.5em 2em 2em 2em;
           border: solid 1px #ccc;
           border-radius: 6px;
