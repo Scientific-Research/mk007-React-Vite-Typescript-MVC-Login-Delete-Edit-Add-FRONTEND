@@ -14,11 +14,19 @@ export interface IJob {
 export const editItem = {
   title: '',
   description: '',
+  company: '',
+  url: '',
+  skillList: '',
+  todo: '',
 };
 
 export interface IEditItem {
   title: string;
   description: string;
+  company: string;
+  url: string;
+  skillList: string;
+  todo: string;
 }
 
 export interface ISkill {
