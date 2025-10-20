@@ -95,7 +95,7 @@ export const JobEdit = ({ job }: IJobEdit) => {
         </div>
 
         <div className="buttonRow">
-          <button onClick={() => handleToggleEditStatus(job)}>Clear</button>
+          <button onClick={() => handleToggleEditStatus(job)}>Cancel</button>
           <button disabled>Save</button>
         </div>
       </fieldset>

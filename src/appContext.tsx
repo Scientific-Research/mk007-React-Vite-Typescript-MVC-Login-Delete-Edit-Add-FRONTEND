@@ -184,8 +184,17 @@ export const AppProvider: React.FC<IAppProvider> = ({ children }) => {
   };
 
   const handleToggleEditStatus = (job: IJob) => {
+    // job.userIsEditing = !job.userIsEditing;
+    // job.editItem.title = '';
+    // job.editItem.description = '';
+    // job.editItem.company = '';
+    // job.editItem.url = '';
+    // job.editItem.skillList = '';
+    // job.editItem.todo = '';
+    // setJobs([...jobs]);
     job.userIsEditing = !job.userIsEditing;
     setJobs([...jobs]);
+    // job.title = job.editItem.title;
   };
 
   return (
