@@ -17,6 +17,7 @@ interface IAppContext {
   ) => void;
   handleToggleOriginalItems: (e: any, job: IJob) => void;
   handleSaveEditedJob: (e: any, job: IJob) => void;
+  handleResetFields: (job: IJob) => void;
 }
 
 interface IAppProvider {
@@ -205,6 +206,11 @@ export const AppProvider: React.FC<IAppProvider> = ({ children }) => {
     setJobs([...jobs]);
   };
 
+  const handleResetFields = (job: IJob) => {
+    job.userIsEditing = !job.userIsEditing;
+    setJobs([...jobs]);
+  };
+
   const handleSaveEditedJob = async (e: any, job: IJob) => {
     e.preventDefault();
     try {
@@ -245,6 +251,7 @@ export const AppProvider: React.FC<IAppProvider> = ({ children }) => {
         handleChangeFormField,
         handleToggleOriginalItems,
         handleSaveEditedJob,
+        handleResetFields,
       }}
     >
       {children}
