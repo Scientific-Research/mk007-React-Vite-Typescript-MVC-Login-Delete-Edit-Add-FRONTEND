@@ -110,6 +110,13 @@ body {
               background-color: rgb(152, 64, 46);
             }
           }
+
+          button.reset {
+            margin-left: 1rem;
+            &:hover {
+              background-color: rgb(194, 194, 57);
+            }
+          }
         }
 
         .skills {

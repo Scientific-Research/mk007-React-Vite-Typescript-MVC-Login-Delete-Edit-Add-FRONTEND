@@ -56,8 +56,13 @@ export const JobDisplay = ({ job }: IJobDisplay) => {
         <button className="delete" onClick={() => handleDeleteJob(job)}>
           Delete
         </button>
+
         <button className="edit" onClick={() => handleEditJob(job)}>
           Edit
+        </button>
+
+        <button className="reset" onClick={() => handleResetFields()}>
+          Reset
         </button>
       </div>
     </div>
