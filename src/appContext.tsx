@@ -168,8 +168,9 @@ export const AppProvider: React.FC<IAppProvider> = ({ children }) => {
     job: IJob,
     fieldIdCode: string
   ) => {
-    job.editItem[fieldIdCode as keyof IEditItem] = value;
     // job.editItem.title = value;
+    job.editItem[fieldIdCode as keyof IEditItem] = value;
+    setJobs([...jobs]);
   };
 
   return (

@@ -18,6 +18,7 @@ export const JobEdit = ({ job }: IJobEdit) => {
         <div className="row">
           <label>Title</label>
           <div>
+            {/* {job.editItem.title} only to show the value is working...*/}
             <input
               value={job.editItem.title}
               type="text"
@@ -31,6 +32,7 @@ export const JobEdit = ({ job }: IJobEdit) => {
         <div className="row">
           <label>Description</label>
           <div>
+            {/* {job.editItem.description} only to show the value is working...*/}
             <input
               value={job.editItem.description}
               type="text"
