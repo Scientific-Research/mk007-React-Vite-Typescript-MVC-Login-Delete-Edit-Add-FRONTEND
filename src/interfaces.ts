@@ -22,6 +22,7 @@ export interface IJob {
 // };
 
 export interface IEditItem {
+  id: number | string;
   title: string;
   description: string;
   company: string;

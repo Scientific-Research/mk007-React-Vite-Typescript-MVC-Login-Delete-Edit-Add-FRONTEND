@@ -16,7 +16,7 @@ interface IAppContext {
     fieldIdCode: string
   ) => void;
   handleToggleOriginalItems: (e: any, job: IJob) => void;
-  handleSaveEditedJob: (job: IJob) => void;
+  handleSaveEditedJob: (e: any, job: IJob) => void;
 }
 
 interface IAppProvider {
@@ -43,6 +43,7 @@ export const AppProvider: React.FC<IAppProvider> = ({ children }) => {
 
         // assign the default values for form fields:
         editItem: {
+          id: rawJob.id,
           title: rawJob.title,
           description: rawJob.description,
           company: rawJob.company,
@@ -165,22 +166,22 @@ export const AppProvider: React.FC<IAppProvider> = ({ children }) => {
     job.userIsEditing = !job.userIsEditing;
     setJobs([...jobs]);
     // console.log(`${job} was deleted!`);
-    try {
-      const res = await axios.put(`${backendUrl}/jobs/${job.id}`);
-      if (res.status === 200) {
-        await loadJobs();
-        await loadTodos();
-        await loadTotaledSkills();
-      } else {
-        console.log(res);
-      }
-    } catch (error: any) {
-      console.error(`ERROR: ${error.message}`);
-      const message = error.response.data.message;
-      if (message) {
-        console.error(`ERROR:${message}`);
-      }
-    }
+    // try {
+    //   const res = await axios.put(`${backendUrl}/jobs/${job.id}`);
+    //   if (res.status === 200) {
+    //     await loadJobs();
+    //     await loadTodos();
+    //     await loadTotaledSkills();
+    //   } else {
+    //     console.log(res);
+    //   }
+    // } catch (error: any) {
+    //   console.error(`ERROR: ${error.message}`);
+    //   const message = error.response.data.message;
+    //   if (message) {
+    //     console.error(`ERROR:${message}`);
+    //   }
+    // }
   };
 
   const handleChangeFormField = (
@@ -204,7 +205,8 @@ export const AppProvider: React.FC<IAppProvider> = ({ children }) => {
     setJobs([...jobs]);
   };
 
-  const handleSaveEditedJob = async (job: IJob) => {
+  const handleSaveEditedJob = async (e: any, job: IJob) => {
+    e.preventDefault();
     try {
       const res = await axios.patch(`${backendUrl}/job`, job.editItem, {
         headers: {
@@ -212,7 +214,9 @@ export const AppProvider: React.FC<IAppProvider> = ({ children }) => {
         },
       });
 
-      if ((res.status = 200)) {
+      // const res = await axios.patch(`${backendUrl}/job`);
+
+      if (res.status === 200) {
         console.log('loading jobs');
         await loadJobs();
         await loadTodos();

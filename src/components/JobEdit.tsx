@@ -101,7 +101,8 @@ export const JobEdit = ({ job }: IJobEdit) => {
           <button onClick={(e) => handleToggleOriginalItems(e, job)}>
             Cancel
           </button>
-          <button disabled>Save</button>
+          {/* <button disabled>Save</button> */}
+          <button onClick={(e) => handleSaveEditedJob(e, job)}>Save</button>
         </div>
       </fieldset>
     </form>
