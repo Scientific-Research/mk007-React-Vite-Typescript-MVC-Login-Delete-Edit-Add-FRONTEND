@@ -11,14 +11,14 @@ export interface IJob {
   editItem: IEditItem;
 }
 
-export const editItem = {
-  title: '',
-  description: '',
-  company: '',
-  url: '',
-  skillList: '',
-  todo: '',
-};
+// export const editItem = {
+//   title: '',
+//   description: '',
+//   company: '',
+//   url: '',
+//   skillList: '',
+//   todo: '',
+// };
 
 export interface IEditItem {
   title: string;

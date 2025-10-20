@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { createContext } from 'react';
 import axios from 'axios';
-import { editItem, IEditItem, IJob, ITodo, ITotaledSkill } from './interfaces';
+import { IEditItem, IJob, ITodo, ITotaledSkill } from './interfaces';
 
 interface IAppContext {
   jobs: IJob[];
@@ -39,7 +39,16 @@ export const AppProvider: React.FC<IAppProvider> = ({ children }) => {
       const _job = {
         ...rawJob,
         userIsEditing: false, // adding this property to the rawJobs using spread operator
-        editItem,
+
+        // assign the default values for form fields:
+        editItem: {
+          title: rawJob.title,
+          description: rawJob.description,
+          company: rawJob.company,
+          url: rawJob.url,
+          skillList: rawJob.skillList,
+          todo: rawJob.todo,
+        },
       };
       _jobs.push(_job);
     });
