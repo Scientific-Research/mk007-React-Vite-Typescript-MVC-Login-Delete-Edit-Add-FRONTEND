@@ -8,8 +8,11 @@ interface IJobEdit {
 
 export const JobEdit = ({ job }: IJobEdit) => {
   // return <div>editing job "{job.title}"</div>;
-  const { handleChangeFormField, handleToggleOriginalItems } =
-    useContext(AppContext);
+  const {
+    handleChangeFormField,
+    handleToggleOriginalItems,
+    handleSaveEditedJob,
+  } = useContext(AppContext);
 
   return (
     <form action="">
