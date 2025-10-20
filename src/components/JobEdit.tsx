@@ -8,7 +8,7 @@ interface IJobEdit {
 
 export const JobEdit = ({ job }: IJobEdit) => {
   // return <div>editing job "{job.title}"</div>;
-  const { handleChangeFormField, handleToggleEditStatus } =
+  const { handleChangeFormField, handleToggleOriginalItems } =
     useContext(AppContext);
 
   return (
@@ -95,7 +95,9 @@ export const JobEdit = ({ job }: IJobEdit) => {
         </div>
 
         <div className="buttonRow">
-          <button onClick={() => handleToggleEditStatus(job)}>Cancel</button>
+          <button onClick={(e) => handleToggleOriginalItems(e, job)}>
+            Cancel
+          </button>
           <button disabled>Save</button>
         </div>
       </fieldset>

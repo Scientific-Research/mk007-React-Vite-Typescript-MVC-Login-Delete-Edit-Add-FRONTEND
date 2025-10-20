@@ -9,6 +9,7 @@ export interface IJob {
   todo: string;
   userIsEditing: boolean;
   editItem: IEditItem;
+  originalItems: IOriginalItems;
 }
 
 // export const editItem = {
@@ -21,6 +22,15 @@ export interface IJob {
 // };
 
 export interface IEditItem {
+  title: string;
+  description: string;
+  company: string;
+  url: string;
+  skillList: string;
+  todo: string;
+}
+
+export interface IOriginalItems {
   title: string;
   description: string;
   company: string;

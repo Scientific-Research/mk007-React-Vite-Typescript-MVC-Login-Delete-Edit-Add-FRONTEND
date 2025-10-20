@@ -15,7 +15,7 @@ interface IAppContext {
     job: IJob,
     fieldIdCode: string
   ) => void;
-  handleToggleEditStatus: (job: IJob) => void;
+  handleToggleOriginalItems: (e: any, job: IJob) => void;
 }
 
 interface IAppProvider {
@@ -42,6 +42,15 @@ export const AppProvider: React.FC<IAppProvider> = ({ children }) => {
 
         // assign the default values for form fields:
         editItem: {
+          title: rawJob.title,
+          description: rawJob.description,
+          company: rawJob.company,
+          url: rawJob.url,
+          skillList: rawJob.skillList,
+          todo: rawJob.todo,
+        },
+
+        originalItems: {
           title: rawJob.title,
           description: rawJob.description,
           company: rawJob.company,
@@ -183,18 +192,15 @@ export const AppProvider: React.FC<IAppProvider> = ({ children }) => {
     setJobs([...jobs]);
   };
 
-  const handleToggleEditStatus = (job: IJob) => {
-    // job.userIsEditing = !job.userIsEditing;
-    // job.editItem.title = '';
-    // job.editItem.description = '';
-    // job.editItem.company = '';
-    // job.editItem.url = '';
-    // job.editItem.skillList = '';
-    // job.editItem.todo = '';
-    // setJobs([...jobs]);
-    job.userIsEditing = !job.userIsEditing;
+  const handleToggleOriginalItems = (e: any, job: IJob) => {
+    e.preventDefault();
+    job.editItem.title = job.originalItems.title;
+    job.editItem.company = job.originalItems.company;
+    job.editItem.description = job.originalItems.description;
+    job.editItem.skillList = job.originalItems.skillList;
+    job.editItem.todo = job.originalItems.todo;
+    job.editItem.url = job.originalItems.url;
     setJobs([...jobs]);
-    // job.title = job.editItem.title;
   };
 
   return (
@@ -207,7 +213,7 @@ export const AppProvider: React.FC<IAppProvider> = ({ children }) => {
         handleDeleteJob,
         handleEditJob,
         handleChangeFormField,
-        handleToggleEditStatus,
+        handleToggleOriginalItems,
       }}
     >
       {children}
