@@ -15,9 +15,9 @@ interface IAppContext {
     job: IJob,
     fieldIdCode: string
   ) => void;
-  handleToggleOriginalItems: (e: any, job: IJob) => void;
+  handleCancelForm: (e: any, job: IJob) => void;
   handleSaveEditedJob: (e: any, job: IJob) => void;
-  handleResetFields: (job: IJob) => void;
+  handleResetFields: (e: any, job: IJob) => void;
 }
 
 interface IAppProvider {
@@ -195,7 +195,8 @@ export const AppProvider: React.FC<IAppProvider> = ({ children }) => {
     setJobs([...jobs]);
   };
 
-  const handleToggleOriginalItems = (e: any, job: IJob) => {
+  // const handleToggleOriginalItems = (e: any, job: IJob) => {
+  const handleResetFields = (e: any, job: IJob) => {
     e.preventDefault();
     job.editItem.title = job.originalItems.title;
     job.editItem.company = job.originalItems.company;
@@ -206,7 +207,9 @@ export const AppProvider: React.FC<IAppProvider> = ({ children }) => {
     setJobs([...jobs]);
   };
 
-  const handleResetFields = (job: IJob) => {
+  const handleCancelForm = (e: any, job: IJob) => {
+    e.preventDefault();
+    // changing from the Form menu to the Jobs menu:
     job.userIsEditing = !job.userIsEditing;
     setJobs([...jobs]);
   };
@@ -249,9 +252,9 @@ export const AppProvider: React.FC<IAppProvider> = ({ children }) => {
         handleDeleteJob,
         handleEditJob,
         handleChangeFormField,
-        handleToggleOriginalItems,
-        handleSaveEditedJob,
         handleResetFields,
+        handleSaveEditedJob,
+        handleCancelForm,
       }}
     >
       {children}

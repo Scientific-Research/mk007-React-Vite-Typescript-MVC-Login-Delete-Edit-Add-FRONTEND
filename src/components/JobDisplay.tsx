@@ -10,8 +10,7 @@ interface IJobDisplay {
 // export const JobDisplay: React.FC<IJobDisplay> = ({ job, handleDeleteJob }) => {
 // export const JobDisplay = ({ job, handleDeleteJob }: IJobDisplay) => {
 export const JobDisplay = ({ job }: IJobDisplay) => {
-  const { handleDeleteJob, handleEditJob, handleResetFields } =
-    useContext(AppContext);
+  const { handleDeleteJob, handleEditJob } = useContext(AppContext);
 
   return (
     <div className="job" key={job.id}>
@@ -60,10 +59,6 @@ export const JobDisplay = ({ job }: IJobDisplay) => {
 
         <button className="edit" onClick={() => handleEditJob(job)}>
           Edit
-        </button>
-
-        <button className="reset" onClick={() => handleResetFields(job)}>
-          Reset
         </button>
       </div>
     </div>

@@ -10,8 +10,9 @@ export const JobEdit = ({ job }: IJobEdit) => {
   // return <div>editing job "{job.title}"</div>;
   const {
     handleChangeFormField,
-    handleToggleOriginalItems,
+    handleCancelForm,
     handleSaveEditedJob,
+    handleResetFields,
   } = useContext(AppContext);
 
   return (
@@ -98,11 +99,11 @@ export const JobEdit = ({ job }: IJobEdit) => {
         </div>
 
         <div className="buttonRow">
-          <button onClick={(e) => handleToggleOriginalItems(e, job)}>
-            Cancel
-          </button>
+          <button onClick={(e) => handleCancelForm(e, job)}>Cancel</button>
           {/* <button disabled>Save</button> */}
           <button onClick={(e) => handleSaveEditedJob(e, job)}>Save</button>
+
+          <button onClick={(e) => handleResetFields(e, job)}>Reset</button>
         </div>
       </fieldset>
     </form>
