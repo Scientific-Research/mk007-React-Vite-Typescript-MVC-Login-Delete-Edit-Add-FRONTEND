@@ -1,4 +1,5 @@
 // import './App.css';
+import './styles/App.scss';
 import { Navigate, NavLink, Route, Routes } from 'react-router-dom';
 import { PageDashboard } from './pages/PageDashboard';
 import { PageJobs } from './pages/PageJobs';
