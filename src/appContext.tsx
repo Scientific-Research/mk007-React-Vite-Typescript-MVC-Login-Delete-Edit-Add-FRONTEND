@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import { createContext } from 'react';
 import axios from 'axios';
-import { IEditItem, IJob, ITodo, ITotaledSkill } from './interfaces';
+import { IEditItem, IJob, ITodo, ITotaledSkill, blankJob } from './interfaces';
+import { cloneDeep } from 'lodash-es';
 
 interface IAppContext {
   jobs: IJob[];
@@ -18,6 +19,7 @@ interface IAppContext {
   handleCancelForm: (e: any, job: IJob) => void;
   handleSaveEditedJob: (e: any, job: IJob) => void;
   handleResetFields: (e: any, job: IJob) => void;
+  toggleAddingForm: () => void;
 }
 
 interface IAppProvider {
@@ -31,7 +33,9 @@ export const AppContext = createContext<IAppContext>({} as IAppContext);
 export const AppProvider: React.FC<IAppProvider> = ({ children }) => {
   const [jobs, setJobs] = useState<IJob[]>([]);
   const [todos, setTodos] = useState<ITodo[]>([]);
+  const [isAdding, setIsAdding] = useState(false);
   const [totaledSkills, setTotaledSkills] = useState<ITotaledSkill[]>([]);
+  const [addingJob, setAddingJob] = useState(cloneDeep(blankJob));
 
   const loadJobs = async () => {
     // const _jobs = (await axios.get(`${backendUrl}/jobs`)).data;
@@ -165,24 +169,22 @@ export const AppProvider: React.FC<IAppProvider> = ({ children }) => {
 
   const handleEditJob = async (job: IJob) => {
     job.userIsEditing = !job.userIsEditing;
+    // This actually here is unnecessray because we have that above => loadJobs => editItem{}
+    job.editItem = {
+      id: job.id,
+      title: job.title,
+      company: job.company,
+      url: job.url,
+      description: job.description,
+      skillList: job.skillList,
+      todo: job.todo,
+    };
     setJobs([...jobs]);
-    // console.log(`${job} was deleted!`);
-    // try {
-    //   const res = await axios.put(`${backendUrl}/jobs/${job.id}`);
-    //   if (res.status === 200) {
-    //     await loadJobs();
-    //     await loadTodos();
-    //     await loadTotaledSkills();
-    //   } else {
-    //     console.log(res);
-    //   }
-    // } catch (error: any) {
-    //   console.error(`ERROR: ${error.message}`);
-    //   const message = error.response.data.message;
-    //   if (message) {
-    //     console.error(`ERROR:${message}`);
-    //   }
-    // }
+  };
+
+  const handleToggleAddStatus = () => {
+    setAddingJob(cloneDeep(blankJob));
+    setIsAdding(!isAdding);
   };
 
   const handleChangeFormField = (
@@ -242,6 +244,10 @@ export const AppProvider: React.FC<IAppProvider> = ({ children }) => {
     }
   };
 
+  const toggleAddingForm = () => {
+    setIsAdding(!isAdding);
+  };
+
   return (
     <AppContext.Provider
       value={{
@@ -255,6 +261,7 @@ export const AppProvider: React.FC<IAppProvider> = ({ children }) => {
         handleResetFields,
         handleSaveEditedJob,
         handleCancelForm,
+        toggleAddingForm,
       }}
     >
       {children}

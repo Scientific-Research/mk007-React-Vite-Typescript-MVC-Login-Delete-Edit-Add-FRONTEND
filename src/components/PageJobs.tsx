@@ -64,6 +64,18 @@ export const PageJobs = () => {
               ) : (
                 <JobDisplay job={job} key={job.id} />
               )}
+
+              {isAdmin && (
+                <>
+                  {!anyJobIsBeingEdited() && !isAdding && (
+                    <button onClick={toggleAddingForm}>Add</button>
+                  )}
+                </>
+              )}
+
+              {isAdding && (
+                <JobForm job={addingJob} formAction={FormAction.Add} />
+              )}
             </React.Fragment>
           );
         })}

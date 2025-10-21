@@ -60,3 +60,37 @@ export interface ITotaledSkill {
   isOpen: boolean;
   lookupInfoLink: string;
 }
+
+export enum FormAction {
+  Edit = 'formActionEdit',
+  Add = 'formActionAdd',
+}
+
+export const blankJob: IJob = {
+  id: 0,
+  title: '',
+  company: '',
+  url: '',
+  description: '',
+  skillList: '',
+  skills: [],
+  todo: '',
+  userIsEditing: false,
+  editItem: {
+    id: 0,
+    title: '',
+    company: '',
+    url: '',
+    description: '',
+    skillList: '',
+    todo: '',
+  },
+  originalItems: {
+    title: '',
+    description: '',
+    company: '',
+    url: '',
+    skillList: '',
+    todo: '',
+  },
+};
