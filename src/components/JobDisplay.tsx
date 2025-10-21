@@ -1,16 +1,20 @@
-import React, { useContext } from 'react';
-import { ISkill, IJob } from '../interfaces';
+import { useContext } from 'react';
 import { AppContext } from '../appContext';
+import { IJob, ISkill } from '../interfaces';
 
-interface IJobDisplay {
+interface IProps {
   job: IJob;
-  // handleDeleteJob: (job: IJob) => void;
 }
 
-// export const JobDisplay: React.FC<IJobDisplay> = ({ job, handleDeleteJob }) => {
-// export const JobDisplay = ({ job, handleDeleteJob }: IJobDisplay) => {
-export const JobDisplay = ({ job }: IJobDisplay) => {
-  const { handleDeleteJob, handleEditJob } = useContext(AppContext);
+export const JobDisplay = ({ job }: IProps) => {
+  const {
+    jobs,
+    handleDeleteJob,
+    handleToggleEditStatus,
+    handleChangePin,
+    pin,
+    isAdmin,
+  } = useContext(AppContext);
 
   return (
     <div className="job" key={job.id}>
@@ -23,9 +27,9 @@ export const JobDisplay = ({ job }: IJobDisplay) => {
       <div className="todo">NEXT TASK: {job.todo}</div>
       <div className="description">{job.description}</div>
       <div className="skills">
-        {job.skills.map((skill: ISkill) => {
+        {job.skills.map((skill: ISkill, i: number) => {
           return (
-            <React.Fragment key={skill.idCode}>
+            <div key={i}>
               {skill.name ? (
                 <div className="skill found">
                   <div className="name">
@@ -43,24 +47,37 @@ export const JobDisplay = ({ job }: IJobDisplay) => {
                       target="_blank"
                     >
                       {skill.idCode}
-                    </a>{' '}
-                    - ADD TO BACKEND: \src\data\skillInfos.json
+                    </a>
+                    {isAdmin && <> - ADD TO BACKEND: \src\data\db.json</>}
                   </div>
                 </div>
               )}
-            </React.Fragment>
+            </div>
           );
         })}
       </div>
-      <div className="managePanel">
-        <button className="delete" onClick={() => handleDeleteJob(job)}>
-          Delete
-        </button>
-
-        <button className="edit" onClick={() => handleEditJob(job)}>
-          Edit
-        </button>
-      </div>
+      {isAdmin && (
+        <div className="managePanel">
+          <button className="edit" onClick={() => handleToggleEditStatus(job)}>
+            Edit
+          </button>
+          <div className="deleteButtonArea">
+            <input
+              placeholder="PIN"
+              type="password"
+              value={pin}
+              onChange={(e) => handleChangePin(e.target.value)}
+            />
+            <button
+              disabled={pin.trim() === ''}
+              className="delete"
+              onClick={() => handleDeleteJob(job)}
+            >
+              Delete
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

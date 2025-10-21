@@ -11,7 +11,7 @@ interface IProps {
 
 export const JobForm = ({ job, formAction }: IProps) => {
   const {
-    handleEditJob,
+    handleToggleEditStatus,
     handleSaveEditedJob,
     handleToggleAddStatus,
     handleSaveAddedJob,
@@ -65,7 +65,7 @@ export const JobForm = ({ job, formAction }: IProps) => {
         <div className="buttonRow">
           {formAction === FormAction.Edit ? (
             <>
-              <button type="button" onClick={() => handleEditJob(job)}>
+              <button type="button" onClick={() => handleToggleEditStatus(job)}>
                 Clear
               </button>
               <div className="saveButtonArea">
