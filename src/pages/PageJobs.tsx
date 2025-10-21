@@ -4,7 +4,7 @@ import { AppContext } from '../appContext';
 import { JobDisplay } from '../components/JobDisplay';
 import { JobForm } from '../components/JobForm';
 import { IJob, FormAction } from '../interfaces';
-// import '../styles/pageJobs.scss';
+import '../styles/pageJobs.scss';
 
 export const PageJobs = () => {
   const {

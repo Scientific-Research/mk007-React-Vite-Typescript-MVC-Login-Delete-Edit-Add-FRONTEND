@@ -1,6 +1,6 @@
 import { useContext, useEffect } from 'react';
 import { AppContext } from '../appContext';
-// import '../styles/pageLogin.scss';
+import '../styles/pageLogin.scss';
 
 export const PageLogin = () => {
   const {

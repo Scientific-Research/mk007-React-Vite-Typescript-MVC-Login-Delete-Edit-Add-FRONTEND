@@ -1,8 +1,13 @@
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { AppContext } from '../appContext';
+import '../styles/pageDashboard.scss';
 
 export const PageDashboard = () => {
-  const { todos } = useContext(AppContext);
+  const { todos, prePageLoad } = useContext(AppContext);
+
+  useEffect(() => {
+    prePageLoad();
+  }, []);
 
   return (
     <div className="page pageDashboard">
