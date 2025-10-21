@@ -166,7 +166,15 @@ export const AppProvider: React.FC<IAppProvider> = ({ children }) => {
   const handleDeleteJob = async (job: IJob) => {
     // console.log('deleting the Job with id' + job.id);
     try {
-      const res = await axios.delete(`${backendUrl}/jobs/${job.id}`);
+      const res = await axios.delete(`${backendUrl}/jobs/${job.id}`, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        data: {
+          pin,
+        },
+      });
+
       if (res.status === 200) {
         // const _jobs = jobs.filter((j) => j.id !== job.id);
         // setJobs([..._jobs]);
@@ -175,15 +183,17 @@ export const AppProvider: React.FC<IAppProvider> = ({ children }) => {
         await loadJobs();
         await loadTodos();
         await loadTotaledSkills();
+        setPin('');
       } else {
         console.log(res);
       }
     } catch (error: any) {
-      console.error(`ERROR: ${error.message}`);
       const message = error.response.data.message;
+      notify(message);
       if (message) {
-        console.error(`ERROR:${message}`);
+        console.error(`ERROR: ${message}`);
       }
+      setPin('');
     }
   };
 
@@ -239,11 +249,15 @@ export const AppProvider: React.FC<IAppProvider> = ({ children }) => {
   const handleSaveEditedJob = async (e: any, job: IJob) => {
     e.preventDefault();
     try {
-      const res = await axios.patch(`${backendUrl}/job`, job.editItem, {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
+      const res = await axios.patch(
+        `${backendUrl}/job`,
+        { job: job.editItem, pin },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
 
       // const res = await axios.patch(`${backendUrl}/job`);
 
@@ -255,9 +269,12 @@ export const AppProvider: React.FC<IAppProvider> = ({ children }) => {
       } else {
         console.log(res);
       }
+      job.userIsEditing = !job.userIsEditing;
+      setPin('');
     } catch (e: any) {
-      console.error(`ERROR: ${e.message}`);
       const message = e.response.data.message;
+      notify(message);
+      setPin('');
       if (message) {
         console.error(`ERROR: ${message}`);
       }
