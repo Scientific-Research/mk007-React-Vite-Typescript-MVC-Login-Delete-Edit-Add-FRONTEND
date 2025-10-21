@@ -1,279 +1,31 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+@use 'variables' as v;
 
 body {
   background-color: #333;
-  color: aliceblue;
-  margin: 1rem;
-  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  color: #ccc;
+  font-family: sans-serif;
+  padding: 0 1rem;
 
-  font-size: 1.25rem;
+  button {
+    font-size: v.$button-font-size;
+  }
 
   h1 {
-    color: rgb(207, 207, 39);
+    color: rgb(209, 168, 85);
   }
 
   nav {
     background-color: #222;
-    margin: 1rem 0;
     padding: 0.5rem;
 
     a {
-      margin-right: 2rem;
+      color: #aaa;
       text-decoration: none;
-      font-size: 1.25rem;
-      color: #ddd;
-
-      &:hover {
-        color: brown;
-      }
+      margin-right: 1rem;
     }
 
     a.active {
-      color: green;
-    }
-  }
-
-  .pageDashboard {
-    .todos {
-      margin-left: 4rem;
-      margin-top: 1rem;
-    }
-
-    .todo {
-      margin-bottom: 0.5rem;
-    }
-    a {
-      color: rgb(68, 186, 36);
-    }
-  }
-
-  .pageJobs {
-    .jobs {
-      .job {
-        background-color: #222;
-        margin: 1rem 0;
-        padding: 1rem;
-
-        .title {
-          a {
-            color: rgb(224, 219, 151);
-            font-size: larger;
-          }
-        }
-
-        h2 {
-          color: rgb(99, 171, 99);
-          text-decoration: underline;
-        }
-
-        h4 {
-          color: green;
-          margin-bottom: 1rem;
-        }
-
-        .description {
-          color: rgb(181, 189, 197);
-          margin-bottom: 0.5rem;
-          font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        .managePanel {
-          display: flex;
-          justify-content: flex-end;
-
-          button {
-            background-color: #555;
-            border: 0;
-            cursor: pointer;
-            font-size: 1.2rem;
-            border-radius: 0.3rem;
-            padding: 0.25rem;
-
-            /* &:hover {
-              background-color: rgb(152, 64, 46);
-            } */
-          }
-
-          button.edit {
-            margin-left: 1rem;
-            &:hover {
-              background-color: green;
-            }
-          }
-
-          button.delete {
-            &:hover {
-              background-color: rgb(152, 64, 46);
-            }
-          }
-
-          button.reset {
-            margin-left: 1rem;
-            &:hover {
-              background-color: rgb(194, 194, 57);
-            }
-          }
-        }
-
-        .skills {
-          .skill {
-            font-family: 'Courier New', Courier, monospace;
-          }
-          .found {
-            color: green;
-            a {
-              color: rgb(114, 208, 114);
-            }
-          }
-          .missing {
-            color: red;
-            a {
-              color: rgb(210, 77, 77);
-            }
-          }
-        }
-
-        .todo {
-          color: yellow;
-          background-color: #111;
-          padding: 0.4rem;
-          font-family: 'Courier New', Courier, monospace;
-          display: inline-block;
-          border-radius: 0.4rem;
-        }
-      }
-
-      form {
-        fieldset {
-          margin: 2rem 2em 2em 0;
-          padding: 1.5em 2em 2em 2em;
-          border: solid 1px #ccc;
-          border-radius: 6px;
-          width: 50rem;
-          min-width: 200px;
-          background-color: rgb(45, 91, 45);
-
-          .row:not(:first-of-type) {
-            margin-top: 1rem;
-          }
-
-          legend {
-            padding: 0 0.25em;
-            color: rgb(200, 169, 110) !important;
-          }
-
-          label {
-            display: block;
-            margin-bottom: 0.3rem;
-
-            &::after {
-              content: ':';
-            }
-          }
-
-          input[type='text'] {
-            padding: 0.5em;
-            border: 1px solid #999;
-            width: 96%;
-            margin-bottom: 0.5rem;
-            font-family: courier;
-          }
-
-          textarea {
-            width: 97%;
-            height: 8rem;
-            font-family: courier;
-            font-size: 0.8rem;
-          }
-
-          .buttonRow {
-            display: flex;
-            justify-content: space-between;
-            padding-right: 1rem;
-
-            button {
-              margin-top: 1rem;
-              font-size: 1rem;
-              padding: 0.3rem;
-              display: flex;
-              align-items: center;
-            }
-          }
-        }
-      }
-    }
-  }
-
-  .pageSkills {
-    .totaledSkill {
-      margin-bottom: 1rem;
-      width: 25rem;
-
-      .mainArea {
-        padding: 0.5rem;
-        cursor: pointer;
-      }
-
-      .openArea {
-        padding: 0.5rem;
-        .description {
-          a {
-            text-decoration: none;
-            &:hover {
-              text-decoration: underline;
-            }
-          }
-        }
-      }
-    }
-
-    .found {
-      background-color: rgb(30, 67, 30);
-
-      .mainArea {
-        .total {
-          color: rgb(206, 206, 115);
-        }
-      }
-
-      .openArea {
-        background-color: rgb(21, 49, 21);
-        color: #888;
-
-        .description {
-          a {
-            color: rgb(78, 111, 62);
-            font-family: courier;
-          }
-        }
-      }
-    }
-
-    .missing {
-      background-color: rgb(86, 5, 5);
-      color: #777;
-      font-family: courier;
-
-      .mainArea {
-        .total {
-          color: #777;
-        }
-      }
-
-      .openArea {
-        background-color: rgb(56, 17, 17);
-        color: #666;
-
-        .description {
-          a {
-            color: rgb(121, 42, 38);
-          }
-        }
-      }
+      color: rgb(211, 211, 110);
     }
   }
 }
