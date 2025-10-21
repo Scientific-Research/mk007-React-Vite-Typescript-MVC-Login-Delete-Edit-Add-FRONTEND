@@ -78,7 +78,7 @@ export const JobForm = ({ job, formAction }: IProps) => {
                 <button
                   disabled={pin.trim() === ''}
                   type="button"
-                  onClick={() => handleSaveEditedJob(job)}
+                  onClick={(e) => handleSaveEditedJob(e, job)}
                 >
                   Save
                 </button>

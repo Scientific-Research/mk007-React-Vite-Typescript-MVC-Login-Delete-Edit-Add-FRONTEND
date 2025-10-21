@@ -1,8 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Dispatch, SetStateAction } from 'react';
 import { createContext } from 'react';
 import axios from 'axios';
 import { IEditItem, IJob, ITodo, ITotaledSkill, blankJob } from './interfaces';
 import { cloneDeep } from 'lodash-es';
+import { toast } from 'react-toastify';
 
 interface IAppContext {
   jobs: IJob[];
@@ -11,6 +12,7 @@ interface IAppContext {
   handleToggleTotaledSkill: (totaledSkill: ITotaledSkill) => void;
   handleDeleteJob: (job: IJob) => void;
   handleEditJob: (job: IJob) => void;
+  handleChangePin: (value: string) => void;
   handleChangeFormField: (
     value: string,
     job: IJob,
@@ -20,11 +22,25 @@ interface IAppContext {
   handleSaveEditedJob: (e: any, job: IJob) => void;
   handleResetFields: (e: any, job: IJob) => void;
   toggleAddingForm: () => void;
+  anyJobIsBeingEdited: () => boolean;
+  isAdding: boolean;
+  addingJob: IJob;
+  pin: string;
+  setPin: Dispatch<SetStateAction<string>>;
+  prePageLoad: () => void;
+  isAdmin: boolean;
+  handleIdentifyAsAdminButton: () => void;
+  handleLogoutButton: () => void;
+  handleSaveAddedJob: () => void;
+  handleToggleAddStatus: () => void;
+  handleToggleEditStatus: (job: IJob) => void;
 }
 
 interface IAppProvider {
   children: React.ReactNode;
 }
+
+const notify = (message: string) => toast(message);
 
 const backendUrl = 'http://localhost:8000';
 
@@ -36,6 +52,8 @@ export const AppProvider: React.FC<IAppProvider> = ({ children }) => {
   const [isAdding, setIsAdding] = useState(false);
   const [totaledSkills, setTotaledSkills] = useState<ITotaledSkill[]>([]);
   const [addingJob, setAddingJob] = useState(cloneDeep(blankJob));
+  const [pin, setPin] = useState('');
+  const [isAdmin, setIsAdmin] = useState(false);
 
   const loadJobs = async () => {
     // const _jobs = (await axios.get(`${backendUrl}/jobs`)).data;
@@ -244,8 +262,108 @@ export const AppProvider: React.FC<IAppProvider> = ({ children }) => {
     }
   };
 
+  const handleSaveAddedJob = async () => {
+    try {
+      const res = await axios.post(
+        `${backendUrl}/job`,
+        {
+          job: addingJob.editItem,
+          pin,
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+      if (res.status === 200) {
+        await loadJobs();
+        await loadTodos();
+        await loadTotaledSkills();
+      } else {
+        console.log(res);
+      }
+      notify(`Job "${addingJob.editItem.title}" added.`);
+      setAddingJob(cloneDeep(blankJob));
+      setIsAdding(false);
+      setPin('');
+    } catch (e: any) {
+      const message = e.response.data.message;
+      notify(message);
+      setPin('');
+    }
+  };
+
   const toggleAddingForm = () => {
     setIsAdding(!isAdding);
+  };
+
+  const anyJobIsBeingEdited = () => {
+    // jobs.forEach((job) => {
+    for (const job of jobs) {
+      if (job.userIsEditing) {
+        console.log('true');
+        return true;
+      }
+    }
+    return false;
+  };
+
+  const handleChangePin = (pin: string) => {
+    setPin(pin);
+  };
+
+  const prePageLoad = () => {
+    setPin('');
+  };
+
+  const handleIdentifyAsAdminButton = async () => {
+    try {
+      const res = await axios.post(
+        `${backendUrl}/identify-as-admin`,
+        {
+          pin,
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+      if (res.status === 200) {
+        setIsAdmin(true);
+        await loadJobs();
+        await loadTodos();
+        await loadTotaledSkills();
+        setPin('');
+      } else {
+        notify(`There was an error.`);
+        console.log(res);
+      }
+    } catch (e: any) {
+      const message = e.response.data.message;
+      notify(message);
+      setPin('');
+    }
+  };
+
+  const handleLogoutButton = () => {
+    setIsAdmin(false);
+    setPin('');
+  };
+
+  const handleToggleEditStatus = (job: IJob) => {
+    job.userIsEditing = !job.userIsEditing;
+    job.editItem = {
+      id: job.id,
+      title: job.title,
+      company: job.company,
+      url: job.url,
+      description: job.description,
+      skillList: job.skillList,
+      todo: job.todo,
+    };
+    setJobs([...jobs]);
   };
 
   return (
@@ -258,10 +376,23 @@ export const AppProvider: React.FC<IAppProvider> = ({ children }) => {
         handleDeleteJob,
         handleEditJob,
         handleChangeFormField,
+        handleToggleEditStatus,
         handleResetFields,
         handleSaveEditedJob,
         handleCancelForm,
         toggleAddingForm,
+        anyJobIsBeingEdited,
+        isAdding,
+        isAdmin,
+        handleChangePin,
+        prePageLoad,
+        handleIdentifyAsAdminButton,
+        handleLogoutButton,
+        handleSaveAddedJob,
+        handleToggleAddStatus,
+        pin,
+        addingJob,
+        setPin,
       }}
     >
       {children}
