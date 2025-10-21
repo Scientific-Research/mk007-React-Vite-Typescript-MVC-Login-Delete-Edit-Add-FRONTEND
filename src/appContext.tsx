@@ -40,9 +40,11 @@ interface IAppProvider {
   children: React.ReactNode;
 }
 
+const backendUrl = import.meta.env.VITE_BACKEND_URL;
+
 const notify = (message: string) => toast(message);
 
-const backendUrl = 'http://localhost:8000';
+// const backendUrl = 'http://localhost:8000';
 
 export const AppContext = createContext<IAppContext>({} as IAppContext);
 
